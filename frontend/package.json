@@ -13,6 +13,7 @@
     "@types/react": "^18.0.23",
     "@types/react-dom": "^18.0.7",
     "compose-function": "^3.0.3",
+    "gapi-script": "^1.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",

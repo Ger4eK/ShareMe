@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router';
-import HomePage from './HomePage';
-import LoginPage from './LoginPage';
+import HomePage from './HomePage/HomePage';
+import LoginPage from './LoginPage/LoginPage';
 
 export const Routing = () => {
   return (

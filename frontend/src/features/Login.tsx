@@ -5,7 +5,7 @@ import GoogleLogin from 'react-google-login';
 import { useEffect } from 'react';
 import { loadGapiInsideDOM } from 'gapi-script';
 import { useNavigate } from 'react-router-dom';
-import { client } from '../shared/client';
+import { client } from '../processes/client';
 
 const Login = () => {
   const navigate = useNavigate();

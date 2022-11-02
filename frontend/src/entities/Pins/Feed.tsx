@@ -1,11 +1,46 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { client } from '../../processes/client';
+import { feedQuery } from '../../shared/api/feedQuery';
+import { searchQuery } from '../../shared/api/searchQuery';
+import MasonryLayout from '../../shared/ui/layout/MasonryLayout';
+import Spinner from '../../shared/ui/Spinner';
 
-type Props = {}
+type Props = {};
 
 const Feed = (props: Props) => {
-  return (
-    <div>Feed</div>
-  )
-}
+  const [pins, setPins] = useState();
+  const [loading, setLoading] = useState(false);
+  const { categoryId } = useParams();
 
-export default Feed
+  useEffect(() => {
+    //! for specific pins
+    if (categoryId) {
+      setLoading(true);
+      const query = searchQuery(categoryId);
+      client.fetch(query).then((data) => {
+        setPins(data);
+        setLoading(false);
+      });
+    } else {
+      setLoading(true);
+
+      //! for all pins
+      client.fetch(feedQuery).then((data) => {
+        setPins(data);
+        setLoading(false);
+      });
+    }
+  }, [categoryId]);
+
+  const ideaName = categoryId || 'new';
+  if (loading) {
+    return (
+      <Spinner message={`We are adding ${ideaName} ideas to your feed!`} />
+    );
+  }
+
+  return <div>{pins && <MasonryLayout pins={pins} />}</div>;
+};
+
+export default Feed;

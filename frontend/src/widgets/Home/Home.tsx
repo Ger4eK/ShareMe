@@ -9,6 +9,7 @@ import { userQuery } from '../../shared/api/userQuery';
 import { User } from '../../shared/@types/user';
 import Pins from '../Pins/Pins';
 import UserProfile from '../../entities/Home/UserProfile';
+import { fetchUser } from '../../shared/utils/fetchUser';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,10 +17,7 @@ const Home = () => {
   const [user, setUser] = useState<User>();
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const userInfo =
-    localStorage.getItem('user') !== 'undefined'
-      ? JSON.parse(localStorage.getItem('user') || '')
-      : navigate('/', { replace: true });
+  const userInfo = fetchUser();
 
   useEffect(() => {
     const query = userQuery(userInfo?.googleId);

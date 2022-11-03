@@ -1,7 +1,7 @@
 import React from 'react';
 import { ColorRing } from 'react-loader-spinner';
 
-type Props = { message: string };
+type Props = { message?: string };
 
 const Spinner = ({ message }: Props) => {
   return (

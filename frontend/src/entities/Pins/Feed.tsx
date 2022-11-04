@@ -9,7 +9,7 @@ import Spinner from '../../shared/ui/Spinner';
 type Props = {};
 
 const Feed = (props: Props) => {
-  const [pins, setPins] = useState();
+  const [pins, setPins] = useState<any>();
   const [loading, setLoading] = useState(false);
   const { categoryId } = useParams();
 
@@ -39,6 +39,11 @@ const Feed = (props: Props) => {
       <Spinner message={`We are adding ${ideaName} ideas to your feed!`} />
     );
   }
+
+  if (!pins?.length)
+    return (
+      <h2 className=' flex justify-center items-center'>No pins available</h2>
+    );
 
   return <div>{pins && <MasonryLayout pins={pins} />}</div>;
 };

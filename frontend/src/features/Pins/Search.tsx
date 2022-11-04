@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { client } from '../../processes/client';
+import { feedQuery } from '../../shared/api/feedQuery';
+import { searchQuery } from '../../shared/api/searchQuery';
+import MasonryLayout from '../../shared/ui/layout/MasonryLayout';
+import Spinner from '../../shared/ui/Spinner';
 
 type Props = {
   searchTerm: string;
@@ -6,7 +11,34 @@ type Props = {
 };
 
 const Search = ({ searchTerm, setSearchTerm }: Props) => {
-  return <div>Search</div>;
+  const [pins, setPins] = useState<any>();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (searchTerm !== '') {
+      setLoading(true);
+      const query = searchQuery(searchTerm.toLowerCase());
+      client.fetch(query).then((data) => {
+        setPins(data);
+        setLoading(false);
+      });
+    } else {
+      client.fetch(feedQuery).then((data) => {
+        setPins(data);
+        setLoading(false);
+      });
+    }
+  }, [searchTerm]);
+
+  return (
+    <div>
+      {loading && <Spinner message='Searching pins' />}
+      {pins?.length !== 0 && <MasonryLayout pins={pins} />}
+      {pins?.length === 0 && searchTerm !== '' && !loading && (
+        <div className='mt-10 text-center text-xl '>No Pins Found!</div>
+      )}
+    </div>
+  );
 };
 
 export default Search;

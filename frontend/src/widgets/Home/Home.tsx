@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import SideBar from '../../entities/Home/SideBar';
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import logo from '../../shared/assets/logo.png';
 import { client } from '../../processes/client';
 import { userQuery } from '../../shared/api/userQuery';
@@ -12,7 +12,6 @@ import UserProfile from '../../entities/Home/UserProfile';
 import { fetchUser } from '../../shared/utils/fetchUser';
 
 const Home = () => {
-  const navigate = useNavigate();
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState<User>();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -21,12 +20,10 @@ const Home = () => {
 
   useEffect(() => {
     const query = userQuery(userInfo?.googleId);
-
     client.fetch(query).then((data) => {
       setUser(data[0]);
     });
-  }, []);
-
+  }, [userInfo?.googleId]);
   useEffect(() => {
     scrollRef.current?.scrollTo(0, 0);
   });

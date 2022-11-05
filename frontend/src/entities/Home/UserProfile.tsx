@@ -8,7 +8,6 @@ import { userQuery } from '../../shared/api/userQuery';
 import { client } from '../../processes/client';
 import MasonryLayout from '../../shared/ui/layout/MasonryLayout';
 import Spinner from '../../shared/ui/Spinner';
-import { loadGapiInsideDOM } from 'gapi-script';
 import { userSavedPinsQuery } from '../../shared/api/userSavedPinsQuery';
 
 const activeBtnStyles =
@@ -24,7 +23,7 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
 
- 
+  
   useEffect(() => {
     const query = userQuery(userId as string);
 

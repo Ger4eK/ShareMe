@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Login from '../../features/Login';
 
 const LoginPage = () => {

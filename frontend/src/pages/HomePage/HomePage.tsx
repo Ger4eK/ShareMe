@@ -1,5 +1,4 @@
 import Home from '../../widgets/Home/Home';
-import Pins from '../../widgets/Pins/Pins';
 
 const HomePage = () => {
   return (
